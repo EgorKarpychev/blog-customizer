@@ -118,7 +118,7 @@ export const ArticleParamsForm = ({
 					onSubmit={handleSubmit}
 					onReset={handleReset}>
 					<Text size={31} weight={800} uppercase>
-						Параметры статьи
+						задайте параметры
 					</Text>
 					<Separator />
 					<Select
