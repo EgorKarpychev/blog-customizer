@@ -65,11 +65,12 @@
 		"stylelint:fix": "stylelint \"src/**/*.scss\" --fix",
 		"lint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\"",
 		"format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\" --ignore-path ./.prettierignore",
-		"test": "npm run stylelint:fix && npm run lint && npm run format",
+		"test": "npm run stylelint:fix && npm run lint && npm run format && playwright test",
 		"prepare": "husky install",
 		"commit": "npm run test && cz",
 		"storybook": "storybook dev -p 6006",
-		"build-storybook": "storybook build"
+		"build-storybook": "storybook build",
+		"pretest": "npx playwright install --with-deps chromium"
 	},
 	"eslintConfig": {
 		"extends": [
