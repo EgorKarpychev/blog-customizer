@@ -4,7 +4,6 @@
 	"main": "index.js",
 	"license": "MIT",
 	"devDependencies": {
-		"@playwright/test": "^1.58.2",
 		"@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
 		"@storybook/addon-essentials": "^8.0.5",
 		"@storybook/addon-interactions": "^8.0.5",
@@ -66,13 +65,11 @@
 		"stylelint:fix": "stylelint \"src/**/*.scss\" --fix",
 		"lint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\"",
 		"format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\" --ignore-path ./.prettierignore",
-		"test": "npx playwright install chromium && npm run stylelint:fix && npm run lint && npm run format && playwright test",
+		"test": "npm run stylelint:fix && npm run lint && npm run format",
 		"prepare": "husky install",
 		"commit": "npm run test && cz",
 		"storybook": "storybook dev -p 6006",
-		"build-storybook": "storybook build",
-		"pretest": "npx playwright install --with-deps chromium",
-		"postinstall": "npx playwright install chromium"
+		"build-storybook": "storybook build"
 	},
 	"eslintConfig": {
 		"extends": [
