@@ -29,33 +29,33 @@ export const ArticleParamsForm = ({
 	onApply,
 	onReset,
 }: ArticleParamsFormProps) => {
-	const [isOpen, setIsOpen] = useState(false);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [formState, setFormState] = useState<ArticleStateType>(appliedState);
 
 	const asideRef = useRef<HTMLElement>(null);
 
 	useEffect(() => {
-		if (isOpen) {
+		if (isMenuOpen) {
 			setFormState(appliedState);
 		}
-	}, [isOpen, appliedState]);
+	}, [isMenuOpen, appliedState]);
 
 	const close = useCallback(() => {
-		setIsOpen(false);
+		setIsMenuOpen(false);
 		setFormState(appliedState);
 	}, [appliedState]);
 
 	const open = useCallback(() => {
-		setIsOpen(true);
+		setIsMenuOpen(true);
 	}, []);
 
 	const handleToggle = useCallback(() => {
-		if (isOpen) {
+		if (isMenuOpen) {
 			close();
 		} else {
 			open();
 		}
-	}, [isOpen, close, open]);
+	}, [isMenuOpen, close, open]);
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
@@ -66,25 +66,25 @@ export const ArticleParamsForm = ({
 				close();
 			}
 		};
-		if (isOpen) {
+		if (isMenuOpen) {
 			document.addEventListener('mousedown', handleClickOutside);
 		}
 		return () => {
 			document.removeEventListener('mousedown', handleClickOutside);
 		};
-	}, [isOpen, close]);
+	}, [isMenuOpen, close]);
 
 	useEffect(() => {
 		const handleEsc = (event: KeyboardEvent) => {
 			if (event.key === 'Escape') close();
 		};
-		if (isOpen) {
+		if (isMenuOpen) {
 			document.addEventListener('keydown', handleEsc);
 		}
 		return () => {
 			document.removeEventListener('keydown', handleEsc);
 		};
-	}, [isOpen, close]);
+	}, [isMenuOpen, close]);
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -109,9 +109,11 @@ export const ArticleParamsForm = ({
 
 	return (
 		<>
-			<ArrowButton isOpen={isOpen} onClick={handleToggle} />
+			<ArrowButton isOpen={isMenuOpen} onClick={handleToggle} />
 			<aside
-				className={clsx(styles.container, { [styles.container_open]: isOpen })}
+				className={clsx(styles.container, {
+					[styles.container_open]: isMenuOpen,
+				})}
 				ref={asideRef}>
 				<form
 					className={styles.form}
@@ -120,7 +122,6 @@ export const ArticleParamsForm = ({
 					<Text size={31} weight={800} uppercase>
 						задайте параметры
 					</Text>
-					<Separator />
 					<Select
 						title='Шрифт'
 						selected={formState.fontFamilyOption}
@@ -140,6 +141,7 @@ export const ArticleParamsForm = ({
 						options={fontColors}
 						onChange={handleFontColorChange}
 					/>
+					<Separator />
 					<Select
 						title='Цвет фона'
 						options={backgroundColors}
